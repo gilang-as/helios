@@ -1,0 +1,15 @@
+[package]
+name = "hpkg"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "hpkg"
+path = "src/main.rs"
+
+[dependencies]
+serde = { workspace = true }
+toml = { workspace = true }
+tokio = { workspace = true }

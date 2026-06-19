@@ -1,0 +1,19 @@
+[workspace]
+resolver = "2"
+members = [
+    "helios-dock",
+    "helios-bar",
+    "hpkg",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+authors = ["Helios OS"]
+license = "GPL-3.0"
+
+[workspace.dependencies]
+iced = { version = "0.14", features = ["wgpu", "x11"] }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"

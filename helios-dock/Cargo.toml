@@ -1,0 +1,16 @@
+[package]
+name = "helios-dock"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "helios-dock"
+path = "src/main.rs"
+
+[dependencies]
+iced = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+toml = { workspace = true }

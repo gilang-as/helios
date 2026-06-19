@@ -1,0 +1,4 @@
+[target.x86_64-unknown-linux-gnu]
+# Override rustup's bundled lld (crashes on this machine) with system ld.bfd
+linker = "gcc"
+rustflags = ["-C", "link-self-contained=no", "-C", "link-arg=-fuse-ld=gold"]
