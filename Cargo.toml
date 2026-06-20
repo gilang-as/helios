@@ -13,7 +13,7 @@ authors = ["Helios OS"]
 license = "GPL-3.0"
 
 [workspace.dependencies]
-iced = { version = "0.14", features = ["wgpu", "x11"] }
+libcosmic = { git = "https://github.com/pop-os/libcosmic", features = ["wayland", "tokio"] }
 tokio = { version = "1", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 toml = "0.8"

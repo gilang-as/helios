@@ -1,7 +1,6 @@
-use iced::{
-    Alignment, Background, Border, Color, Element, Length,
-    widget::{container, row},
-};
+use cosmic::Element;
+use cosmic::iced::{Alignment, Background, Border, Color, Length};
+use cosmic::widget::{container, row};
 
 use crate::{Message, app_item::app_item, config::DockConfig};
 
@@ -31,23 +30,25 @@ pub fn dock_view(config: &DockConfig, hovered_app: Option<usize>) -> Element<Mes
     let dock_row = row(items)
         .align_y(Alignment::End)
         .spacing(config.gap)
-        .padding([config.padding as u16, (config.padding + 6) as u16]);
+        .padding([config.padding as f32, (config.padding + 6) as f32]);
 
     container(dock_row)
-        .style(|_theme| iced::widget::container::Style {
-            background: Some(Background::Color(DOCK_BG)),
-            border: Border {
-                radius: 18.0.into(),
-                color: Color {
-                    r: 1.0,
-                    g: 1.0,
-                    b: 1.0,
-                    a: 0.08,
+        .style(
+            |_theme: &cosmic::Theme| cosmic::iced::widget::container::Style {
+                background: Some(Background::Color(DOCK_BG)),
+                border: Border {
+                    radius: 18.0.into(),
+                    color: Color {
+                        r: 1.0,
+                        g: 1.0,
+                        b: 1.0,
+                        a: 0.08,
+                    },
+                    width: 1.0,
                 },
-                width: 1.0,
+                ..Default::default()
             },
-            ..Default::default()
-        })
+        )
         .width(Length::Shrink)
         .height(Length::Shrink)
         .into()

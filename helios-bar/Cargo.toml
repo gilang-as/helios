@@ -10,7 +10,7 @@ name = "helios-bar"
 path = "src/main.rs"
 
 [dependencies]
-iced = { workspace = true }
+libcosmic = { workspace = true }
 tokio = { workspace = true }
 serde = { workspace = true }
 toml = { workspace = true }
