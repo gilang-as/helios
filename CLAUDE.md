@@ -15,13 +15,27 @@ Workspace members (root `Cargo.toml`): `helios-dock`, `helios-bar`, `hpkg`.
 cargo build                        # all workspace members
 cargo build -p helios-dock         # single crate
 cargo build --release              # production build
-cargo run -p helios-dock           # run dock
 ```
 
-For `helios-comp`:
+`helios-dock` and `helios-bar` are Wayland layer-shell clients — they require a running compositor. Do not use `cargo run` directly.
+
+For `helios-comp` (compositor):
 ```bash
-cd helios-comp && make             # debug build
-cd helios-comp && make DEBUG=0     # release build
+cargo build -p helios-comp         # wrong — helios-comp is a separate workspace
+cd helios-comp && cargo build      # correct
+cd helios-comp && make DEBUG=0     # release build via Makefile
+```
+
+### Running the full stack
+
+```bash
+# 1. Start compositor (from tty1 or via seatd)
+XDG_RUNTIME_DIR=/run/user/1000 XDG_SEAT=seat0 XDG_VTNR=1 LIBSEAT_BACKEND=seatd \
+  ./helios-comp/target/debug/cosmic-comp &
+
+# 2. Start bar and dock
+WAYLAND_DISPLAY=wayland-1 XDG_RUNTIME_DIR=/run/user/1000 ./target/debug/helios-bar &
+WAYLAND_DISPLAY=wayland-1 XDG_RUNTIME_DIR=/run/user/1000 ./target/debug/helios-dock &
 ```
 
 ## Linker (critical)
@@ -45,7 +59,7 @@ CI (`helios-comp/.github/workflows/ci.yml`) runs format, clippy, feature checks,
 
 ## Key Dependencies
 
-- `iced 0.14` with `wgpu` + `x11` features — used by `helios-dock` and `helios-bar` for GUI.
+- `libcosmic` (git, `wayland` + `tokio` features) — GUI framework for `helios-dock` and `helios-bar`. Uses `zwlr-layer-shell-v1` to anchor surfaces to screen edges.
 - `tokio` (full features) — async runtime.
 - `serde` + `toml` — config serialization.
 
